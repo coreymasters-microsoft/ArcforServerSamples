@@ -4,7 +4,7 @@
     "parameters": {
         "location": {
             "type": "String",
-            "defaultValue": "eastus"
+            "defaultValue": "canadacentral"
         },
         "networkInterfaceName": {
             "type": "String",
@@ -17,10 +17,6 @@
         "networkSecurityGroupName": {
             "type": "String",
             "defaultValue": "win-Arctest01-nsg"
-        },
-        "networkSecurityGroupRules": {
-            "type": "Array",
-            "defaultValue": []
         },
         "subnetName": {
             "type": "String",
@@ -74,16 +70,14 @@
         },
         "OSVersion": {
         "type": "string",
-        "defaultValue": "2025-datacenter",
+        "defaultValue": "2022-datacenter-azure-edition",
         "allowedValues": [
-            "2016-Datacenter",
             "2016-datacenter-gensecond",
             "2016-datacenter-server-core-g2",
             "2016-datacenter-server-core-smalldisk-g2",
             "2016-datacenter-smalldisk-g2",
             "2016-datacenter-with-containers-g2",
             "2016-datacenter-zhcn-g2",
-            "2019-Datacenter",
             "2019-datacenter-core-g2",
             "2019-datacenter-core-smalldisk-g2",
             "2019-datacenter-core-with-containers-g2",
@@ -93,15 +87,21 @@
             "2019-datacenter-with-containers-g2",
             "2019-datacenter-with-containers-smalldisk-g2",
             "2019-datacenter-zhcn-g2",
-            "2022-datacenter",
+            "2022-datacenter-azure-edition",
+            "2022-datacenter-azure-edition-core",
+            "2022-datacenter-azure-edition-core-smalldisk",
+            "2022-datacenter-azure-edition-smalldisk",
             "2022-datacenter-core-g2",
             "2022-datacenter-core-smalldisk-g2",
             "2022-datacenter-g2",
             "2022-datacenter-smalldisk-g2",
-            "2025-datacenter",
-            "2025-datacenter-core",
-            "2025-datacenter-core-g2",
-            "2025-datacenter-g2"
+            "2012-Datacenter",
+            "2012-R2-Datacenter",
+            "2016-Datacenter",
+            "2019-Datacenter",
+            "2022-datacenter",
+	    "2025-datacenter"
+
         ],
         "metadata": {
             "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version."
@@ -162,7 +162,7 @@
                 "Contributor",
                 "Reader"
             ],
-            "defaultValue": "Contributor",
+            "defaultValue": "Owner",
             "metadata": {
                 "description": "Built-in role to assign"
             }
@@ -267,7 +267,60 @@
             "name": "[parameters('networkSecurityGroupName')]",
             "location": "[parameters('location')]",
             "properties": {
-                "securityRules": "[parameters('networkSecurityGroupRules')]"
+                "securityRules": [
+	                {
+	                    "name": "SSH",
+	                    "properties": {
+	                        "priority": 300,
+	                        "protocol": "TCP",
+	                        "access": "Allow",
+	                        "direction": "Inbound",
+	                        "sourceAddressPrefix": "*",
+	                        "sourcePortRange": "*",
+	                        "destinationAddressPrefix": "*",
+	                        "destinationPortRange": "22"
+	                    }
+	                },
+	                {
+	                    "name": "HTTPS",
+	                    "properties": {
+	                        "priority": 320,
+	                        "protocol": "TCP",
+	                        "access": "Allow",
+	                        "direction": "Inbound",
+	                        "sourceAddressPrefix": "*",
+	                        "sourcePortRange": "*",
+	                        "destinationAddressPrefix": "*",
+	                        "destinationPortRange": "443"
+	                    }
+	                },
+	                {
+	                    "name": "HTTP",
+	                    "properties": {
+	                        "priority": 340,
+	                        "protocol": "TCP",
+	                        "access": "Allow",
+	                        "direction": "Inbound",
+	                        "sourceAddressPrefix": "*",
+	                        "sourcePortRange": "*",
+	                        "destinationAddressPrefix": "*",
+	                        "destinationPortRange": "80"
+	                    }
+	                },
+	                {
+	                    "name": "RDP",
+	                    "properties": {
+	                        "priority": 360,
+	                        "protocol": "TCP",
+	                        "access": "Allow",
+	                        "direction": "Inbound",
+	                        "sourceAddressPrefix": "*",
+	                        "sourcePortRange": "*",
+	                        "destinationAddressPrefix": "*",
+	                        "destinationPortRange": "3389"
+	                    }
+	                }
+            	]
             }
         },
         {
