@@ -8,7 +8,7 @@
         },
         "networkInterfaceName": {
             "type": "String",
-            "defaultValue": "win-arctest01453"
+            "defaultValue": "core64vm-nic"
         },
         "enableAcceleratedNetworking": {
             "type": "Bool",
@@ -16,7 +16,7 @@
         },
         "networkSecurityGroupName": {
             "type": "String",
-            "defaultValue": "win-Arctest01-nsg"
+            "defaultValue": "core64vm-nsg"
         },
         "networkSecurityGroupRules": {
             "type": "Array",
@@ -28,7 +28,7 @@
         },
         "virtualNetworkName": {
             "type": "String",
-            "defaultValue": "win-Arctest01-vnet"
+            "defaultValue": "core64vm-vnet"
         },
         "addressPrefixes": {
             "type": "Array",
@@ -42,7 +42,7 @@
         },
         "publicIpAddressName": {
             "type": "String",
-            "defaultValue": "win-Arctest01-ip"
+            "defaultValue": "core64vm-ip"
         },
         "publicIpAddressType": {
             "type": "String",
@@ -58,53 +58,49 @@
         },
         "virtualMachineName": {
             "type": "String",
-            "defaultValue": "win-Arctest01"
+            "defaultValue": "core64vm"
         },
         "virtualMachineComputerName": {
             "type": "String",
-            "defaultValue": "win-Arctest01"
-        },
-        "virtualMachineRG": {
-            "type": "String",
-            "defaultValue": "ArcVMTestrg"
+            "defaultValue": "core64vm"
         },
         "osDiskType": {
             "type": "String",
             "defaultValue": "Premium_LRS"
         },
         "OSVersion": {
-        "type": "string",
-        "defaultValue": "2025-datacenter",
-        "allowedValues": [
-            "2016-Datacenter",
-            "2016-datacenter-gensecond",
-            "2016-datacenter-server-core-g2",
-            "2016-datacenter-server-core-smalldisk-g2",
-            "2016-datacenter-smalldisk-g2",
-            "2016-datacenter-with-containers-g2",
-            "2016-datacenter-zhcn-g2",
-            "2019-Datacenter",
-            "2019-datacenter-core-g2",
-            "2019-datacenter-core-smalldisk-g2",
-            "2019-datacenter-core-with-containers-g2",
-            "2019-datacenter-core-with-containers-smalldisk-g2",
-            "2019-datacenter-gensecond",
-            "2019-datacenter-smalldisk-g2",
-            "2019-datacenter-with-containers-g2",
-            "2019-datacenter-with-containers-smalldisk-g2",
-            "2019-datacenter-zhcn-g2",
-            "2022-datacenter",
-            "2022-datacenter-core-g2",
-            "2022-datacenter-core-smalldisk-g2",
-            "2022-datacenter-g2",
-            "2022-datacenter-smalldisk-g2",
-            "2025-datacenter",
-            "2025-datacenter-core",
-            "2025-datacenter-core-g2",
-            "2025-datacenter-g2"
-        ],
-        "metadata": {
-            "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version."
+            "type": "string",
+            "defaultValue": "2025-datacenter",
+            "allowedValues": [
+                "2016-Datacenter",
+                "2016-datacenter-gensecond",
+                "2016-datacenter-server-core-g2",
+                "2016-datacenter-server-core-smalldisk-g2",
+                "2016-datacenter-smalldisk-g2",
+                "2016-datacenter-with-containers-g2",
+                "2016-datacenter-zhcn-g2",
+                "2019-Datacenter",
+                "2019-datacenter-core-g2",
+                "2019-datacenter-core-smalldisk-g2",
+                "2019-datacenter-core-with-containers-g2",
+                "2019-datacenter-core-with-containers-smalldisk-g2",
+                "2019-datacenter-gensecond",
+                "2019-datacenter-smalldisk-g2",
+                "2019-datacenter-with-containers-g2",
+                "2019-datacenter-with-containers-smalldisk-g2",
+                "2019-datacenter-zhcn-g2",
+                "2022-datacenter",
+                "2022-datacenter-core-g2",
+                "2022-datacenter-core-smalldisk-g2",
+                "2022-datacenter-g2",
+                "2022-datacenter-smalldisk-g2",
+                "2025-datacenter",
+                "2025-datacenter-core",
+                "2025-datacenter-core-g2",
+                "2025-datacenter-g2"
+            ],
+            "metadata": {
+                "description": "The Windows version for the VM. This will pick a fully patched image of this given Windows version."
             }
         },
         "osDiskDeleteOption": {
@@ -141,11 +137,11 @@
         },
         "identityName": {
             "type": "String",
-            "defaultValue": "win-arctest01453"
+            "defaultValue": "core64vm-msi"
         },
         "identityLocation": {
             "type": "String",
-            "defaultValue": "canadacentral"
+            "defaultValue": "eastus"
         },
         "roleNameGuid": {
             "type": "String",
@@ -189,7 +185,7 @@
         "ArcAdmin": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'cd570a14-e51a-42ad-bac8-bafd67325302')]",
         "Contributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'b24988ac-6180-42a0-ab88-20f7382dd24c')]",
         "Reader": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', 'acdd72a7-3385-48ef-bd42-f606fba81ae7')]",
-        "AzureServiceDeployReleaseManagementContributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '21d96096-b162-414a-8302-d8354f9d91b2')]"   
+        "AzureServiceDeployReleaseManagementContributor": "[concat('/subscriptions/', subscription().subscriptionId, '/providers/Microsoft.Authorization/roleDefinitions/', '21d96096-b162-414a-8302-d8354f9d91b2')]"
     },
     "resources": [
         {
@@ -206,23 +202,23 @@
             "location": "[parameters('location')]",
             "dependsOn": [
                 "[concat('Microsoft.ManagedIdentity/userAssignedIdentities/', parameters('identityName'))]"
-                  ],
+            ],
             "properties": {
-              "azPowerShellVersion": "3.0",
-              "scriptContent": "start-sleep -Seconds 30",
-              "cleanupPreference": "Always",
-              "retentionInterval": "PT1H"
+                "azPowerShellVersion": "3.0",
+                "scriptContent": "start-sleep -Seconds 30",
+                "cleanupPreference": "Always",
+                "retentionInterval": "PT1H"
             }
-          },
+        },
         {
-          "type": "Microsoft.Authorization/roleAssignments",
-          "apiVersion": "2018-09-01-preview",
-          "name": "[parameters('roleNameGuid')]",
-          "properties": {
-              "roleDefinitionId": "[variables(parameters('builtInRoleType'))]",
-              "principalId": "[reference(resourceId(resourceGroup().name, 'Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2023-01-31', 'Full').Properties.principalId]"
-          },
-          "dependsOn": [
+            "type": "Microsoft.Authorization/roleAssignments",
+            "apiVersion": "2018-09-01-preview",
+            "name": "[parameters('roleNameGuid')]",
+            "properties": {
+                "roleDefinitionId": "[variables(parameters('builtInRoleType'))]",
+                "principalId": "[reference(resourceId(resourceGroup().name, 'Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2023-01-31', 'Full').Properties.principalId]"
+            },
+            "dependsOn": [
                 "[resourceId('Microsoft.Resources/deploymentScripts', 'WaitSection')]",
                 "[concat('Microsoft.ManagedIdentity/userAssignedIdentities/', parameters('identityName'))]"
             ]
@@ -280,18 +276,18 @@
                     "addressPrefixes": "[parameters('addressPrefixes')]"
                 },
                 "subnets": [
-					{
-						"name": "default",
-						"properties": {
-							"addressPrefix": "[parameters('subnetAddressPrefix')]",
-							"networkSecurityGroup": {
-								"id": "[variables('nsgId')]"
-							}
-						}
-					}
-				]
+                    {
+                        "name": "default",
+                        "properties": {
+                            "addressPrefix": "[parameters('subnetAddressPrefix')]",
+                            "networkSecurityGroup": {
+                                "id": "[variables('nsgId')]"
+                            }
+                        }
+                    }
+                ]
             },
-			"dependsOn": [
+            "dependsOn": [
                 "[concat('Microsoft.Network/networkSecurityGroups/', parameters('networkSecurityGroupName'))]"
             ]
         },
@@ -312,11 +308,10 @@
             "apiVersion": "2024-03-01",
             "name": "[parameters('virtualMachineName')]",
             "location": "[parameters('location')]",
-            "identity": 
-            {
+            "identity": {
                 "type": "UserAssigned",
                 "userAssignedIdentities": {
-                        "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName'))]":{}
+                    "[resourceId('Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName'))]": {}
                 }
             },
             "dependsOn": [
@@ -392,7 +387,7 @@
                     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
                     "variables": {
-                        "principalId": "[reference(resourceId(resourceGroup().name, 'Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2023-01-31', 'Full').Properties.principalId]"  
+                        "principalId": "[reference(resourceId(resourceGroup().name, 'Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2023-01-31', 'Full').Properties.principalId]"
                     },
                     "resources": [
                         {
@@ -402,12 +397,12 @@
                             "name": "InnerWaitSection",
                             "location": "[parameters('location')]",
                             "properties": {
-                              "azPowerShellVersion": "3.0",
-                              "scriptContent": "start-sleep -Seconds 30",
-                              "cleanupPreference": "Always",
-                              "retentionInterval": "PT1H"
+                                "azPowerShellVersion": "3.0",
+                                "scriptContent": "start-sleep -Seconds 30",
+                                "cleanupPreference": "Always",
+                                "retentionInterval": "PT1H"
                             }
-                          },
+                        },
                         {
                             "type": "Microsoft.Compute/virtualMachines/extensions",
                             "apiVersion": "2021-04-01",
@@ -417,18 +412,18 @@
                                 "[resourceId('Microsoft.Resources/deploymentScripts', 'InnerWaitSection')]"
                             ],
                             "properties": {
-                              "publisher": "Microsoft.Compute",
-                              "type": "CustomScriptExtension",
-                              "typeHandlerVersion": "1.7",
-                              "autoUpgradeMinorVersion": true,
-                              "settings": {
-                                "fileUris": [
-                                  "https://raw.githubusercontent.com/nitinbps/ArcforServerSamples/refs/heads/main/InstallArcForServerWithToken.ps1"
-                                ],
-                                "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File InstallArcForServerWithToken.ps1 -principalId ', reference(resourceId(resourceGroup().name, 'Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2023-01-31', 'Full').Properties.principalId)]"
-                              }
+                                "publisher": "Microsoft.Compute",
+                                "type": "CustomScriptExtension",
+                                "typeHandlerVersion": "1.7",
+                                "autoUpgradeMinorVersion": true,
+                                "settings": {
+                                    "fileUris": [
+                                        "https://raw.githubusercontent.com/nitinbps/ArcforServerSamples/refs/heads/main/InstallArcForServerWithToken.ps1"
+                                    ],
+                                    "commandToExecute": "[concat('powershell.exe -ExecutionPolicy Unrestricted -File InstallArcForServerWithToken.ps1 -principalId ', reference(resourceId(resourceGroup().name, 'Microsoft.ManagedIdentity/userAssignedIdentities', parameters('identityName')), '2023-01-31', 'Full').Properties.principalId)]"
+                                }
                             }
-                          }
+                        }
                     ]
                 }
             }
