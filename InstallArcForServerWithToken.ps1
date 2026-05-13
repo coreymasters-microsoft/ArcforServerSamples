@@ -1,5 +1,6 @@
 param(
       [string]$cloudEnv = "AzureCloud",
+      [string]$arcLocation,
       [Parameter(Mandatory)] # Don't add Mandatory if it's false. Cause this the default
       [string]$principalId 
      ) 
@@ -128,7 +129,7 @@ try {
  	    }
         catch {
 	    Write-Host  -ForegroundColor red $_.Exception;
-            sleep -Seconds $sleepSeconds
+	    Start-Sleep -Seconds $sleepSeconds
 	    continue;
         }
 	break
@@ -136,7 +137,11 @@ try {
     $env:ACCESS_TOKEN = $machine_info.access_token;
     $env:SUBSCRIPTION_ID = $machine_info.subscriptionID;
     $env:RESOURCE_GROUP = $machine_info.resourceGroupName;
-    $env:LOCATION = $machine_info.resourceLocation;
+    if ([string]::IsNullOrWhiteSpace($arcLocation)) {
+        $env:LOCATION = $machine_info.resourceLocation;
+    } else {
+        $env:LOCATION = $arcLocation;
+    }
     $env:TENANT_ID = $machine_info.tenantID;
     
 
@@ -149,7 +154,7 @@ try {
  	    }
         catch {
 	    Write-Host  -ForegroundColor red $_.Exception;
-            sleep -Seconds $sleepSeconds
+	    Start-Sleep -Seconds $sleepSeconds
 	    continue;
         }
 	break
